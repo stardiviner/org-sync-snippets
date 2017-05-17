@@ -102,16 +102,16 @@ ORG-FILE the location of the compiled org file."
     (insert "#+TITLE: " org-sync-snippets-collection-title "\n")
     (insert "#+AUTHOR: org-sync-snippets\n\n")
     (dolist (mode (f-directories snippets-dir))
-      (insert "* " (file-name-base mode) "\n")
+      (insert "* " (file-name-base mode) "\n\n")
       (dolist (snippet-file (f-files mode))
         (let ((content (f-read-text snippet-file 'utf-8)))
           (unless (string-match "^# tangle: no" content)
-            (insert "** " (file-name-base snippet-file) "\n"
+            (insert "** " (file-name-base snippet-file) "\n\n"
                     "#+BEGIN_SRC snippet "
                     ":tangle " snippet-file
                     "\n"
                     (replace-regexp-in-string "^" "  " content) "\n"
-                    "#+END_SRC\n")))))))
+                    "#+END_SRC\n\n")))))))
 
 (defun org-sync-snippets--to-snippets (org-file snippets-dir)
   "Tangle org file to snippets.
